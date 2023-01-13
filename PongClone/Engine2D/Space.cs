@@ -24,11 +24,19 @@ public class Space
 
     public void Update(TimeSpan deltaTime)
     {
+        
+        List<Square> possibleCollision = new();
         foreach (var obj in Objects)
         {
             if (obj.Velocity == Vector2.Zero)
                 continue;
 
+            foreach (var otherObj in Objects)
+            {
+                if(otherObj.FutureApproximateIntersects(obj, deltaTime))
+                    if(otherObj.FutureIntersects(obj, deltaTime))
+                        obj.MoveToWall(otherObj);
+            }
 
         }
     }

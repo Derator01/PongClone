@@ -10,6 +10,8 @@ namespace PongClone.Shapes
 
         public bool IsConvex { get; } = true;
 
+        public float Mass {get { return Height*Mass; }}
+
         public Vector2 Position { get; private set; }
         private Vector2 _prevPosition;
 
@@ -21,6 +23,15 @@ namespace PongClone.Shapes
         private float _prevHeight;
 
         public Vector2[] Vertices { get; private set; }
+
+        public Square(Vector2 position, float width, float height)
+        {
+            Position = position;
+            Width = width;
+            Height = height;
+
+            CalculateMass();
+        }
 
         private void Enable()
         {
@@ -51,6 +62,11 @@ namespace PongClone.Shapes
             Vertices[1] = new Vector2(Width / 2, -Height / 2);
             Vertices[2] = new Vector2(Width / 2, Height / 2);
             Vertices[3] = new Vector2(-Width / 2, Height / 2);
+        }
+
+        public bool FutureApproximateIntersects(Square other, TimeSpan deltaTime)
+        {
+            throw new NotImplementedException();
         }
     }
 }
